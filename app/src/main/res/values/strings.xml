@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DeepCouponNet</string>
+    <string name="enter_pan">Enter Account Number</string>
 </resources>
