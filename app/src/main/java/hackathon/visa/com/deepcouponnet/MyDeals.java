@@ -2,8 +2,8 @@ package hackathon.visa.com.deepcouponnet;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,23 +25,25 @@ public class MyDeals extends AppCompatActivity {
 
     OkHttpClient client;
     FrequentDestinations frequentDestinations;
-    ArrayList<String> deals;
-    ArrayAdapter<String> adapter;
+    ArrayList<DealsNearby> deals;
+    ListView listView;
+    private static CustomAdapter customAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_deals);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
         String pan = getIntent().getStringExtra("PAN");
         fetchMyDealsByPan(pan);
 
         deals = new ArrayList<>();
-        deals.add("Loading...");
-        adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, deals);
-        ListView listView = (ListView) findViewById(R.id.listview);
-        listView.setAdapter(adapter);
+
+        listView = (ListView) findViewById(R.id.listview);
+        listView.setAdapter(customAdapter);
     }
 
     private void fetchMyDealsByPan(String pan) {
@@ -77,15 +79,19 @@ public class MyDeals extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        deals.remove("Loading...");
                         for(FrequentDestination frequentDestination : frequentDestinations.getFrequentDestinations()) {
                             if(frequentDestination.getDealsNearby() != null) {
                                 for (DealsNearby dealsNearby : frequentDestination.getDealsNearby()) {
-                                    deals.add(dealsNearby.getDeal() + " " + dealsNearby.getDist() + " sec away, offered by " + dealsNearby.getVendor());
+                                    deals.add(dealsNearby);
                                 }
                             }
                         }
-                        adapter.notifyDataSetChanged();
+
+                        customAdapter= new CustomAdapter(deals, getApplicationContext());
+
+                        listView.setAdapter(customAdapter);
+
+                        customAdapter.notifyDataSetChanged();
 
                     }
                 });
