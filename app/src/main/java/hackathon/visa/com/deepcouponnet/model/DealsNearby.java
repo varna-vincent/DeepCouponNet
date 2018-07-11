@@ -12,20 +12,23 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
         "Deal",
-        "Vendor",
+        "Category",
         "Dist",
-        "Category"
+        "AwayFrom",
+        "Vendor"
 })
 public class DealsNearby {
 
     @JsonProperty("Deal")
     private String deal;
-    @JsonProperty("Vendor")
-    private String vendor;
-    @JsonProperty("Dist")
-    private Integer dist;
     @JsonProperty("Category")
     private String category;
+    @JsonProperty("Dist")
+    private Integer dist;
+    @JsonProperty("AwayFrom")
+    private String awayFrom;
+    @JsonProperty("Vendor")
+    private String vendor;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -39,14 +42,14 @@ public class DealsNearby {
         this.deal = deal;
     }
 
-    @JsonProperty("Vendor")
-    public String getVendor() {
-        return vendor;
+    @JsonProperty("Category")
+    public String getCategory() {
+        return category;
     }
 
-    @JsonProperty("Vendor")
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
+    @JsonProperty("Category")
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     @JsonProperty("Dist")
@@ -59,14 +62,24 @@ public class DealsNearby {
         this.dist = dist;
     }
 
-    @JsonProperty("Category")
-    public String getCategory() {
-        return category;
+    @JsonProperty("AwayFrom")
+    public String getAwayFrom() {
+        return awayFrom;
     }
 
-    @JsonProperty("Category")
-    public void setCategory(String category) {
-        this.category = category;
+    @JsonProperty("AwayFrom")
+    public void setAwayFrom(String awayFrom) {
+        this.awayFrom = awayFrom;
+    }
+
+    @JsonProperty("Vendor")
+    public String getVendor() {
+        return vendor;
+    }
+
+    @JsonProperty("Vendor")
+    public void setVendor(String vendor) {
+        this.vendor = vendor;
     }
 
     @JsonAnyGetter

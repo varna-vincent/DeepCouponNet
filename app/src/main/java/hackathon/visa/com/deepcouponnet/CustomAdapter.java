@@ -20,7 +20,8 @@ public class CustomAdapter extends ArrayAdapter<DealsNearby> implements View.OnC
     private static class ViewHolder {
         TextView txtVendor;
         TextView txtDeal;
-        TextView txtDistance;
+        TextView txtDealDistance;
+        TextView txtCategory;
     }
 
     public CustomAdapter(ArrayList<DealsNearby> data, Context context) {
@@ -64,7 +65,8 @@ public class CustomAdapter extends ArrayAdapter<DealsNearby> implements View.OnC
             convertView = inflater.inflate(R.layout.single_deal, parent, false);
             viewHolder.txtVendor = (TextView) convertView.findViewById(R.id.vendor);
             viewHolder.txtDeal = (TextView) convertView.findViewById(R.id.deal);
-            viewHolder.txtDistance = (TextView) convertView.findViewById(R.id.dealDistance);
+            viewHolder.txtDealDistance = (TextView) convertView.findViewById(R.id.dealDistance);
+            viewHolder.txtCategory = (TextView) convertView.findViewById(R.id.category);
 
             result = convertView;
 
@@ -78,7 +80,8 @@ public class CustomAdapter extends ArrayAdapter<DealsNearby> implements View.OnC
 
         viewHolder.txtVendor.setText(dealsNearby.getVendor());
         viewHolder.txtDeal.setText(dealsNearby.getDeal());
-//        viewHolder.txtDistance.setText(dealsNearby.getDist());
+        viewHolder.txtDealDistance.setText("Less than " + String.valueOf(dealsNearby.getDist()) + " min away from " + dealsNearby.getAwayFrom());
+        viewHolder.txtCategory.setText(dealsNearby.getCategory());
         // Return the completed view to render on screen
         return convertView;
     }
