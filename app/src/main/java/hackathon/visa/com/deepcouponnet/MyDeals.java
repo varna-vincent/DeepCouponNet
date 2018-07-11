@@ -72,15 +72,26 @@ public class MyDeals extends AppCompatActivity {
                 frequentDestinations = new ObjectMapper().readValue(jsonResponse, FrequentDestinations.class);
                 Log.i("TAG", frequentDestinations.toString());
 
-//                deals.remove("Loading...");
-//                for(FrequentDestination frequentDestination : frequentDestinations.getFrequentDestinations()) {
-//
-//                    for(DealsNearby dealsNearby : frequentDestination.getDealsNearby()) {
-//                        deals.add(dealsNearby.getDeal() + " " + dealsNearby.getDist() + " sec away, offered by " + dealsNearby.getVendor());
-//                    }
-//                }
-//                adapter.notifyDataSetChanged();
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                        deals.remove("Loading...");
+                        for(FrequentDestination frequentDestination : frequentDestinations.getFrequentDestinations()) {
+                            if(frequentDestination.getDealsNearby() != null) {
+                                for (DealsNearby dealsNearby : frequentDestination.getDealsNearby()) {
+                                    deals.add(dealsNearby.getDeal() + " " + dealsNearby.getDist() + " sec away, offered by " + dealsNearby.getVendor());
+                                }
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+
+                    }
+                });
+
             }
         });
     }
+
 }

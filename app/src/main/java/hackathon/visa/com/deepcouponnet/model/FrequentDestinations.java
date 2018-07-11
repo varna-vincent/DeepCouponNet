@@ -49,7 +49,7 @@ public class FrequentDestinations {
 
         for(FrequentDestination frequentDestination : getFrequentDestinations()) {
 
-            if(frequentDestination != null) {
+            if(frequentDestination.getDealsNearby() != null) {
                 for (DealsNearby dealsNearby : frequentDestination.getDealsNearby()) {
                     dealsNearbyStr += "\nDeal - " + dealsNearby.getDeal() +
                             "\nVendor - " + dealsNearby.getVendor() +

@@ -29,4 +29,5 @@ public class MainActivity extends AppCompatActivity {
         myDealsIntent.putExtra("PAN" , pan);
         startActivity(myDealsIntent);
     }
+    
 }
